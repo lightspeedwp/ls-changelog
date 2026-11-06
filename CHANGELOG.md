@@ -10,7 +10,7 @@ All notable changes to the LightSpeed WP Changelog Generator project are documen
 
 ### Changed
 - Repository identity, setup and capability descriptions now match the tracked tree: `ls-wp-changelog` repository, no tracked lockfiles, root npm package documented ([PR #3](https://github.com/lightspeedwp/ls-wp-changelog/pull/3), [LS-4776](https://linear.app/lightspeedwp/issue/LS-4776/refactor-ls-wp-changelog-fix-repository-identity-metadata-and-setup))
-- Documentation, references and specs corrected: broken links repaired or marked unresolved, unsupported flags (`--fix`, `--strict`, `--rule`, `--release-version`) labelled, and release tag/push steps separated from authorisation ([LS-4777](https://linear.app/lightspeedwp/issue/LS-4777/refactor-ls-wp-changelog-correct-docs-references-and-specs))
+- Documentation, references and specs corrected: broken links repaired or marked unresolved, unsupported flags (`--fix`, `--strict`, `--rule`, `--release-version`) labelled, and release tag/push steps separated from authorisation ([PR #5](https://github.com/lightspeedwp/ls-wp-changelog/pull/5), [LS-4777](https://linear.app/lightspeedwp/issue/LS-4777/refactor-ls-wp-changelog-correct-docs-references-and-specs))
 - `changelog-validate` hook checks the real `CHANGELOG.md` and uses POSIX shell syntax ([PR #1](https://github.com/lightspeedwp/ls-wp-changelog/pull/1), [LS-4773](https://linear.app/lightspeedwp/issue/LS-4773/refactor-ls-wp-changelog-repair-the-test-harness-and-hooks))
 
 ### Fixed
