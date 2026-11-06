@@ -8,7 +8,7 @@ Released versions cannot be modified after release.
 
 ## 2. Atomicity
 
-Each entry references exactly one PR/issue.
+Each entry references one PR link and one issue link, next to each other (checked by the [changelog link verifier](../../changelog-link-verifier/SKILL.md)).
 
 ## 3. Consistency
 
@@ -24,7 +24,7 @@ Entries must meet quality thresholds (0-100 scoring).
 
 ## 6. Traceability
 
-Every entry must link to the code change (PR/issue).
+Every entry must link to the code change (one PR link) and its issue (one Linear or GitHub issue link).
 
 ## Quality Scoring
 

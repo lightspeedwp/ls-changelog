@@ -7,12 +7,15 @@
     "url": "git+https://github.com/lightspeedwp/ls-wp-changelog.git"
   },
   "scripts": {
-    "test": "npm run test:jest && npm run test:bats",
+    "test": "npm run test:jest && npm run test:vitest && npm run test:bats",
     "test:jest": "jest --roots=scripts --coverage --coverage-threshold='{\"lines\":90,\"functions\":90,\"branches\":90,\"statements\":90}' __tests__",
+    "test:vitest": "vitest run --coverage --configLoader runner",
     "test:bats": "bats tests",
     "test:watch": "jest --roots=scripts --watch __tests__"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@vitest/coverage-v8": "5.1.0",
+    "jest": "^29.7.0",
+    "vitest": "5.1.0"
   }
 }

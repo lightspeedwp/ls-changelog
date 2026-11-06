@@ -45,6 +45,25 @@
         "jest": "sub-skills/changelog-validator/__tests__/",
         "bats": "sub-skills/changelog-validator/tests/"
       }
+    },
+    {
+      "id": "changelog-link-verifier",
+      "name": "Changelog Link Verifier",
+      "description": "Read-only check that every changelog entry has an adjacent PR link and issue link (Linear or GitHub). It checks link presence and adjacency only, does not fetch links, and accepts the release-agent handoff fields (version, release issue, PR list, changelog path)",
+      "type": "skill",
+      "path": "sub-skills/changelog-link-verifier/",
+      "main": "SKILL.md",
+      "capabilities": ["link-presence-check", "release-handoff-intake"],
+      "tools": [
+        {
+          "name": "verify-changelog-links.ts",
+          "description": "Reports every entry missing a PR link or issue link and exits non-zero on failure",
+          "path": "sub-skills/changelog-link-verifier/scripts/verify-changelog-links.ts"
+        }
+      ],
+      "testing": {
+        "vitest": "sub-skills/changelog-link-verifier/__tests__/"
+      }
     }
   ],
   "relatedSkills": [
