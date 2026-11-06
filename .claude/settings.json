@@ -33,17 +33,17 @@
   ],
   "aliases": {
     "test": "npm test",
-    "test:jest": "npm run test:jest",
+    "test:vitest": "npm run test:vitest",
     "test:bats": "npm run test:bats",
     "test:watch": "npm run test:watch",
-    "test:coverage": "npm run test:jest -- --coverage",
+    "test:coverage": "npm run test:vitest",
     "lint": "npm run lint",
     "validate": "npm run lint && npm test",
     "check": "npm run validate",
     "help": "less README.md"
   },
   "testing": {
-    "framework": "Jest + BATS",
+    "framework": "Vitest + BATS",
     "testMatch": [
       "sub-skills/*/__tests__/**/*.test.js",
       "sub-skills/*/tests/**/*.bats"
@@ -60,13 +60,13 @@
     "bashCompatibility": "3.2+",
     "commands": {
       "test": "npm test -- with coverage",
-      "testJest": "npm run test:jest -- runs Jest tests",
+      "testVitest": "npm run test:vitest -- runs Vitest tests (all packages)",
       "testBats": "npm run test:bats -- runs BATS integration tests",
       "testWatch": "npm run test:watch -- continuous testing",
       "testSingle": "npm test -- <filename>.test.js"
     },
     "coLocation": {
-      "description": "Jest tests are co-located with source scripts following Jest best practices",
+      "description": "Vitest tests are co-located with source scripts in __tests__ folders",
       "locations": [
         "sub-skills/branch-context-mapper/__tests__/",
         "sub-skills/changelog-validator/__tests__/"
@@ -116,7 +116,7 @@
     "engine": "lefthook",
     "config": "lefthook.yaml",
     "hooks": {
-      "pre-commit": "Branch type check, root changelog format check, Jest tests (configured 90% coverage threshold) and BATS tests",
+      "pre-commit": "Branch type check, root changelog format check, Vitest tests (coverage reported, no threshold enforced) and BATS tests",
       "commit-msg": "Commit message format check (type(scope): message)",
       "pre-push": "Final validation before push"
     }

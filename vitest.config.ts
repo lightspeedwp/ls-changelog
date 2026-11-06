@@ -1,15 +1,19 @@
 import { defineConfig } from 'vitest/config';
 
-// Vitest covers the TypeScript sub-skills. The existing root Jest suite
-// (scripts/) and the nested Jest suites keep their own configuration.
+// One Vitest run covers the root package and both sub-skill packages.
+// Existing tests keep their Jest-style globals (describe, test, expect, ...).
 export default defineConfig({
   test: {
-    include: ['sub-skills/**/__tests__/**/*.test.ts'],
+    globals: true,
     environment: 'node',
+    include: ['scripts/__tests__/**/*.test.js', 'sub-skills/**/__tests__/**/*.test.{js,ts}'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary', 'lcov'],
-      include: ['sub-skills/**/scripts/**/*.ts']
+      // Every intended production script is in the denominator, executed or not.
+      include: ['scripts/**/*.{cjs,mjs,js,ts}', 'sub-skills/**/scripts/**/*.{cjs,mjs,js,ts}'],
+      // Test files only; no production file is excluded.
+      exclude: ['**/__tests__/**']
     }
   }
 });
