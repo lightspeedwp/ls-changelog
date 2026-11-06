@@ -51,4 +51,4 @@ Report helper output separately from any additional naming checks or version jud
 
 ## Development checks
 
-From this sub-skill's directory, `npm install` installs development dependencies (no lockfile is tracked, so `npm ci` does not work). Run `npm test` for lint, Jest coverage checks, and BATS tests; BATS must be installed separately. Inspect command results before claiming coverage or pass counts.
+From this sub-skill's directory, `npm install` installs development dependencies (no lockfile is tracked, so `npm ci` does not work). Run `npm test` for lint, Vitest tests, and BATS tests; the Vitest run is delegated to the root package, so run `npm install` at the repository root first, and BATS must be installed separately. Inspect command results before claiming coverage or pass counts.

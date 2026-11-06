@@ -31,14 +31,14 @@ ls-changelog/
 │   │   ├── scripts/                 # Node.js helper
 │   │   ├── references/              # Branching strategy
 │   │   ├── prompts/                 # Task examples
-│   │   ├── __tests__/               # Jest tests
+│   │   ├── __tests__/               # Vitest tests
 │   │   └── tests/                   # BATS tests
 │   └── changelog-validator/
 │       ├── SKILL.md                 # Validation instructions and limitations
 │       ├── scripts/                 # Node.js helper
 │       ├── references/              # Governance principles
 │       ├── prompts/                 # Task examples
-│       ├── __tests__/               # Jest tests
+│       ├── __tests__/               # Vitest tests
 │       └── tests/                   # BATS tests
 ├── docs/                            # Guidelines, onboarding, and roadmap
 ├── references/                      # Evaluation scenarios and reference index
@@ -78,7 +78,7 @@ npm --prefix sub-skills/branch-context-mapper test
 npm --prefix sub-skills/changelog-validator test
 ```
 
-The sub-skill `npm test` runs ESLint, Prettier, Jest with a 90% coverage threshold, and BATS in sequence; the root `npm test` runs Jest and BATS. Install BATS separately. A configured threshold is a requirement, not a claim that current tests achieve it. A failed earlier stage prevents later stages from running.
+Tests use Vitest 5.1.0 with the V8 coverage provider, configured once in the root `vitest.config.ts`. Install the root package first (`npm install` at the root); the sub-skill `npm test` scripts delegate their Vitest run to it. The sub-skill `npm test` runs ESLint, Prettier, Vitest and BATS in sequence; the root `npm test` runs Vitest for all three packages and BATS. Install BATS separately. Coverage is reported (text, json-summary, lcov in `coverage/`) but no threshold is enforced; see [scripts/README.md](scripts/README.md) for the tooling notes. A failed earlier stage prevents later stages from running.
 
 `lefthook.yaml` contains existing hook configuration; hooks are not installed by using the skill. Review that configuration before enabling it in a development checkout.
 

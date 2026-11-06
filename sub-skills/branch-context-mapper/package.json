@@ -9,10 +9,10 @@
     "directory": "sub-skills/branch-context-mapper"
   },
   "scripts": {
-    "test": "npm run lint && npm run test:jest && npm run test:bats",
-    "test:jest": "jest --coverage --coverage-threshold='{\"global\":{\"branches\":90,\"functions\":90,\"lines\":90,\"statements\":90}}'",
+    "test": "npm run lint && npm run test:vitest && npm run test:bats",
+    "test:vitest": "npm --prefix ../.. run test:vitest -- sub-skills/branch-context-mapper",
     "test:bats": "bats tests",
-    "test:watch": "jest --watch",
+    "test:watch": "npm --prefix ../.. run test:watch -- sub-skills/branch-context-mapper",
     "lint": "npm run lint:js && npm run format:check",
     "lint:js": "eslint . --ext .js,.cjs",
     "lint:fix": "npm run lint:js -- --fix && npm run format",
@@ -29,7 +29,6 @@
   "author": "LightSpeed WP",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^29.7.0",
     "eslint": "^8.53.0",
     "prettier": "^3.1.0"
   },

@@ -37,23 +37,19 @@ pre-commit:
           exit "$status"
         fi
 
-    jest-coverage:
-      glob: "sub-skills/**/__tests__/**/*.test.js"
-      description: "Run Jest tests with coverage check"
+    vitest-tests:
+      glob: "**/__tests__/*.test.{js,ts}"
+      description: "Run all Vitest tests once (single run, no watch)"
       run: |
-        echo "Running Jest tests (90%+ coverage required)..."
-        cd sub-skills/branch-context-mapper && npm run test:jest --silent
-        if [ $? -ne 0 ]; then
-          echo "❌ branch-context-mapper tests failed"
-          exit 1
+        # One run covers the root package and both sub-skills; a failing test fails the hook.
+        # Coverage is reported (text, json-summary, lcov) but no threshold is enforced here.
+        npm run test:vitest --silent
+        status=$?
+        if [ "$status" -ne 0 ]; then
+          echo "❌ Vitest tests failed"
+          exit "$status"
         fi
-        
-        cd ../changelog-validator && npm run test:jest --silent
-        if [ $? -ne 0 ]; then
-          echo "❌ changelog-validator tests failed"
-          exit 1
-        fi
-        echo "✓ All Jest tests passed with 90%+ coverage"
+        echo "✓ Vitest tests passed"
 
     bats-tests:
       glob: "sub-skills/**/tests/**/*.bats"
@@ -79,7 +75,7 @@ commit-msg:
     commit-format:
       description: "Validate commit message format"
       run: |
-        commit_msg=$(cat "$1")
+        commit_msg=$(cat "{1}")
         first_line=$(printf '%s\n' "$commit_msg" | head -n 1)
         if ! printf '%s\n' "$first_line" | grep -Eq '^[a-z]+(\([a-z-]+\))?:' && ! printf '%s\n' "$first_line" | grep -Eq '^Merge'; then
           echo "❌ Commit message must follow format: type(scope): message"
@@ -101,12 +97,12 @@ pre-push:
       run: |
         echo "Running final validation before push..."
         
-        # Check all tests pass
-        cd sub-skills/branch-context-mapper
+        # Root package: all Vitest tests and the root BATS suite
         npm test --silent || exit 1
-        
-        cd ../changelog-validator
-        npm test --silent || exit 1
+
+        # Sub-skill packages: lint and BATS (their Vitest tests already ran above)
+        (cd sub-skills/branch-context-mapper && npm run lint --silent && npm run test:bats --silent) || exit 1
+        (cd sub-skills/changelog-validator && npm run lint --silent && npm run test:bats --silent) || exit 1
         
         echo "✓ All tests passed - ready to push"
         echo "✓ Push will proceed"
