@@ -127,10 +127,10 @@ This constitution supersedes all prior practices and is the source of truth for:
 ## Related Standards
 
 - **Org Canonical:** [LightSpeed WP Branching Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/BRANCHING_STRATEGY.md)
-- **Governance Details:** [docs/ORG_STANDARDS.md](docs/ORG_STANDARDS.md)
-- **Team Onboarding:** [docs/TEAM_ONBOARDING.md](docs/TEAM_ONBOARDING.md)
-- **Phase 2 Roadmap:** [docs/PHASE_2_ROADMAP.md](docs/PHASE_2_ROADMAP.md)
-- **Project Guidance:** [CLAUDE.md](CLAUDE.md)
+- **Governance Details:** [docs/ORG_STANDARDS.md](../../docs/ORG_STANDARDS.md)
+- **Team Onboarding:** [docs/TEAM_ONBOARDING.md](../../docs/TEAM_ONBOARDING.md)
+- **Phase 2 Roadmap:** [docs/PHASE_2_ROADMAP.md](../../docs/PHASE_2_ROADMAP.md)
+- **Project Guidance:** [CLAUDE.md](../../CLAUDE.md)
 
 ---
 

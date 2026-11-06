@@ -52,13 +52,13 @@ node scripts/validate-changelog.cjs CHANGELOG.md
 - Each entry includes PR/issue reference: `(#1234)`
 - Each entry uses third-person past tense: "Added", "Fixed"
 - Each entry uses em-dash (`—`) for emphasis, not hyphen (`-`)
-- Each entry is ≤ 100 characters (including PR reference)
+- Each entry is ≤ 100 characters (including PR reference; local rule, the organisation's canonical rule cites 250 and which applies is an open policy question)
 - No first-person language: "We", "I", "You"
 - No abbreviations without explanation
 
 **How to Verify**:
 ```bash
-node scripts/validate-changelog.cjs CHANGELOG.md --strict
+# The helpers have no --strict option; entry rules below are checked manually.
 # Check all entries match pattern: `- [Description] (#\d+)`
 ```
 
@@ -274,14 +274,14 @@ By reading SKILL.md and reference materials:
 
 - Keep a Changelog 1.1.0 (https://keepachangelog.com/en/1.1.0/)
 - Semantic Versioning 2.0.0 (https://semver.org/)
-- Changelog Skill (`~/.claude/skills/changelog/`)
-- Validation Script (`~/.claude/skills/changelog/scripts/validate-changelog.cjs`)
+- Changelog Skill (`~/.claude/skills/ls-changelog/`)
+- Validation Script (`~/.claude/skills/ls-changelog/sub-skills/changelog-validator/scripts/validate-changelog.cjs`)
 
 ## Related Specs
 
-- [LightSpeed WP Branching Strategy](../../docs/BRANCHING_STRATEGY.md)
-- [PR Guidelines](../../docs/PR_GUIDELINES.md)
-- [Release Process](../../docs/RELEASE_PROCESS.md)
+- [LightSpeed WP Branching Strategy](../../sub-skills/branch-context-mapper/references/BRANCHING_STRATEGY.md) (local reference; the organisation source is `docs/BRANCHING_STRATEGY.md` in `lightspeedwp/.github`)
+- PR Guidelines: no local document exists; destination unresolved
+- Release Process: no local document exists; destination unresolved
 
 ## Sign-Off
 

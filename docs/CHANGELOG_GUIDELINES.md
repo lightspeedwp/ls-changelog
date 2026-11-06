@@ -169,11 +169,13 @@ git add CHANGELOG.md package.json (and other version files)
 git commit -m "Release v1.1.0
 
 - Added async/await support
-- Fixed memory leak issue
+- Fixed memory leak issue"
+```
 
-Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>"
+Committing, tagging and pushing are separate release actions. Preparing the changelog does not authorise them: run them only when the maintainer has explicitly authorised each one. Add attribution lines (such as `Co-Authored-By`) only for people or tools that actually contributed to the change.
 
-# Tag
+```bash
+# Only when tagging and pushing have been explicitly authorised
 git tag v1.1.0
 git push origin main --tags
 ```
@@ -306,7 +308,7 @@ All notable changes to this [project name] are documented in this file.
 
 ### Issue: Entry Too Long
 
-**Problem:** Entry exceeds 100 characters
+**Problem:** Entry exceeds 100 characters (local guideline; the organisation's canonical rule cites 250, and which applies is an open policy question)
 
 **Solution:** Shorten the description
 

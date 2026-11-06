@@ -76,7 +76,7 @@ Each entry:
 - Starts with a bullet (`-`)
 - Uses third-person past tense: "Fixed" not "We fixed", "Added" not "I added"
 - References PR/issue: `(#1234)` at the end
-- Max 100 characters including PR reference
+- Max 100 characters including PR reference (local guideline; the helpers do not enforce it. The organisation's canonical rule cites 250 characters; which applies is an open policy question and no enforcement change is made here)
 - Uses em-dash (`—`) for emphasis, not hyphen (`-`)
 
 ### Good Examples
@@ -179,7 +179,7 @@ Your changelog must pass:
 - Versions in descending order
 - Each version has at least one entry
 - All entries reference PR/issue numbers
-- No entries exceed 100 characters
+- No entries exceed 100 characters (local guideline; see the entry-length note above)
 - Consistent em-dash usage
 - Third-person past tense
 - No draft/incomplete entries in releases

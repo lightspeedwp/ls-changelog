@@ -160,7 +160,7 @@ npm run test:bats
 bats tests/branch-context-mapper.bats
 
 # Run with verbose output
-bats tests/branch-context-mapper.bats --verbose
+bats --verbose-run tests/branch-context-mapper.bats
 ```
 
 **Expect:** 100% pass rate on all BATS tests.
@@ -216,7 +216,7 @@ describe('experimental branch type', () => {
 }
 ```
 
-4. **Update documentation** in `references/BRANCHING_STRATEGY.md`.
+4. **Update documentation** in `sub-skills/branch-context-mapper/references/BRANCHING_STRATEGY.md`.
 
 5. **Run tests** to verify:
 ```bash
@@ -254,12 +254,13 @@ describe('deprecation-notice rule', () => {
 
 ```bash
 @test "deprecation entries must include notices" {
+  # Hypothetical example: the current validators have no --rule option
   run validate-changelog --rule deprecation-notice
   [[ "$status" -eq 0 ]]
 }
 ```
 
-4. **Document the rule** in `references/GOVERNANCE_RULES.md`.
+4. **Document the rule** in `sub-skills/changelog-validator/references/GOVERNANCE_RULES.md`.
 
 ---
 
@@ -438,7 +439,7 @@ git push origin release/1.2.0
 **Fix:**
 ```bash
 # Check branch naming rules
-cat references/BRANCHING_STRATEGY.md
+cat sub-skills/branch-context-mapper/references/BRANCHING_STRATEGY.md
 
 # Rename your branch
 git branch -m feature/my-bad-name feature/my-good-name
@@ -460,20 +461,17 @@ open coverage/lcov-report/index.html
 # Re-run: npm test
 ```
 
-### "Changelog entry score too low: 62/100"
+### "Changelog validation failed"
 
-**Cause:** Your changelog entry is missing required elements.
+**Cause:** The changelog is missing its title, a version heading, or has an invalid version or date.
 
-**Run the validator to see what's missing:**
+**Run the validator to see what failed:**
 ```bash
 cd sub-skills/changelog-validator
-node scripts/validate-changelog.cjs CHANGELOG.md --verbose
-
-# Output shows:
-# - Missing issue/PR link
-# - Entry too short
-# - Unclear language
+node scripts/validate-changelog.cjs ../../CHANGELOG.md --json
 ```
+
+The helper only checks the basic format and returns a fixed placeholder score. Entry quality (missing issue/PR links, length, unclear language) is reviewed manually.
 
 **Fix:** Update your entry with:
 - Clear, action-oriented description
@@ -484,11 +482,11 @@ node scripts/validate-changelog.cjs CHANGELOG.md --verbose
 
 ## 📞 Getting Help
 
-- **Questions about branch naming?** → `references/BRANCHING_STRATEGY.md`
-- **Need governance rule details?** → `references/GOVERNANCE_RULES.md`
+- **Questions about branch naming?** → `sub-skills/branch-context-mapper/references/BRANCHING_STRATEGY.md`
+- **Need governance rule details?** → `sub-skills/changelog-validator/references/GOVERNANCE_RULES.md`
 - **Want to understand the mapper?** → `sub-skills/branch-context-mapper/SKILL.md`
 - **Want to understand validation?** → `sub-skills/changelog-validator/SKILL.md`
-- **Stuck on tests?** → Run `npm test` with `--verbose` flag
+- **Stuck on tests?** → Run `npm run test:jest` or `npm run test:bats` in the relevant package directory and read the failure output
 
 ---
 

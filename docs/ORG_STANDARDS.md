@@ -70,9 +70,9 @@ LightSpeed WP defines 24 approved branch types:
 
 ### Phase 1 Coverage
 
-✅ Currently supports: `feat`, `fix`, `security`, `docs`, `refactor`, `test`, `chore`
+✅ The branch-context mapper currently maps: `feature`, `feat`, `fix`, `hotfix`, `security`, `docs`, `refactor`, `test`, `chore`, `perf`, `design`, `a11y`, `deps`, `ci`, `build`, `task`, `release`
 
-⚠️ Phase 2 will expand to all 24 branch types
+⚠️ Phase 2 will cover the remaining organisation branch types (for example `revert`, `ops`, `epic`), which the mapper does not map yet
 
 ---
 
@@ -137,7 +137,7 @@ Phase 1 uses Keep a Changelog format with these categories:
 
 ### Phase 1 Status
 
-✅ Phase 1 implements: 6 core governance rules
+✅ Phase 1 documents 6 core governance principles as manual review guidance (the helpers do not enforce them):
 - Immutability
 - Atomicity
 - Consistency
@@ -145,7 +145,7 @@ Phase 1 uses Keep a Changelog format with these categories:
 - Clarity
 - Traceability
 
-⚠️ **Alignment Gap:** We enforce 6 rules, org defines 20
+⚠️ **Alignment Gap:** We document 6 principles, org defines 20 rules
 
 🔄 **Phase 2 Plan:** Implement all 20 validation rules (R001-R020)
 
@@ -235,10 +235,10 @@ These should be configured in GitHub repository settings.
 ## 7. Implementation Roadmap
 
 ### Phase 1 (✅ Complete)
-- 6 core governance rules implemented
-- Basic branch type mapping (7 types)
+- 6 core governance principles documented (manual review guidance)
+- Basic branch type mapping (7 types at the time; extended to the supported organisation types in LS-4774)
 - Keep a Changelog 1.1.0 format
-- Quality scoring (0-100)
+- Quality scoring placeholder (the helper returns a fixed score; real quality review is manual)
 - Lefthook git hooks integration
 - Team onboarding materials
 - Spec-Kit integration

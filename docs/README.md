@@ -4,11 +4,14 @@ Comprehensive guides for the changelog automation system.
 
 ## Contents
 
-- **ARCHITECTURE.md** - System design and component relationships
-- **GOVERNANCE_RULES.md** - Detailed governance principles
-- **HOOKS_GUIDE.md** - Git hooks configuration and usage
-- **WORKFLOW.md** - Team workflow and integration points
-- **CONTRIBUTING.md** - How to contribute improvements
+- [CHANGELOG_FORMAT.md](CHANGELOG_FORMAT.md) - Changelog structure and entry format
+- [CHANGELOG_GUIDELINES.md](CHANGELOG_GUIDELINES.md) - Entry writing and release preparation
+- [ORG_STANDARDS.md](ORG_STANDARDS.md) - Alignment with organisation standards
+- [PHASE_2_ROADMAP.md](PHASE_2_ROADMAP.md) - Planned work
+- [TEAM_ONBOARDING.md](TEAM_ONBOARDING.md) - Team workflow and setup
+- [Governance Rules](../sub-skills/changelog-validator/references/GOVERNANCE_RULES.md) - Governance principles (manual review guidance)
+
+`ARCHITECTURE.md`, `HOOKS_GUIDE.md`, `WORKFLOW.md` and `CONTRIBUTING.md` are not present in this repository.
 
 ## Quick Links
 
@@ -35,8 +38,9 @@ Follow the standard format for all changelogs.
 6. Traceability
 
 ### Quality Scoring
-- 90-100: Excellent (ready for release)
-- 80-89: Good (ready with notes)
+Target scale for manual review (the helpers do not compute it; the validator returns a fixed placeholder score):
+- 90-100: Excellent
+- 80-89: Good (with notes)
 - <80: Issues need fixing
 
 ## Getting Started
