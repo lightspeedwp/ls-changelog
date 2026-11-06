@@ -217,7 +217,7 @@ EOF
 EOF
   run node "${SCRIPT_PATH}" "${TEST_DIR}/no-title.md"
   [ "$status" -ne 0 ]
-  [[ "$output" == *"no releases"* ]]
+  [[ "$output" == *'Missing required "# Changelog" title'* ]]
 }
 
 @test "validate: rejects non-existent file" {

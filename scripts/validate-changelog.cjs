@@ -35,20 +35,25 @@ class ChangelogValidator {
       // 2. Read file
       const content = fs.readFileSync(this.filePath, 'utf8');
 
-      // 3. Parse changelog structure
+      // 3. Require the "# Changelog" title
+      if (!/^#\s+Changelog\s*$/m.test(content.replace(/^\uFEFF/, ''))) {
+        this.errors.push('Missing required "# Changelog" title');
+      }
+
+      // 4. Parse changelog structure
       const releases = this.parseChangelog(content);
       if (releases === null) {
         this.errors.push('Changelog does not parse or has no releases array');
         return false;
       }
 
-      // 4. Check releases presence
+      // 5. Check releases presence
       if (releases.length === 0) {
         this.errors.push('Changelog must have at least one release');
         return false;
       }
 
-      // 5. Validate each release
+      // 6. Validate each release
       for (const release of releases) {
         this.validateRelease(release);
       }
