@@ -14,7 +14,7 @@ pre-commit:
       run: |
         if git rev-parse --verify HEAD >/dev/null 2>&1; then
           branch=$(git rev-parse --abbrev-ref HEAD)
-          if [[ ! "$branch" =~ ^(feature|fix|docs|refactor|test|chore|security)/ ]] && [[ "$branch" != "main" ]] && [[ "$branch" != "master" ]] && [[ "$branch" != "develop" ]]; then
+          if ! printf '%s\n' "$branch" | grep -Eq '^(feature|fix|docs|refactor|test|chore|security)/' && [ "$branch" != "main" ] && [ "$branch" != "master" ] && [ "$branch" != "develop" ]; then
             echo "❌ Invalid branch name: $branch"
             echo "Must follow: type/description (feature/, fix/, docs/, refactor/, test/, chore/, security/)"
             exit 1
@@ -26,15 +26,15 @@ pre-commit:
       glob: "CHANGELOG.md"
       description: "Validate changelog format"
       run: |
-        if [ -f "CHANGELOG.md" ]; then
-          cd sub-skills/changelog-validator
-          npm run test:jest --silent 2>/dev/null
-          if [ $? -eq 0 ]; then
-            echo "✓ Changelog format valid"
-          else
-            echo "❌ Changelog format issues - please review"
-            exit 1
-          fi
+        # Basic format check of the real root CHANGELOG.md (not the fixture unit tests).
+        # Diagnostics are printed and the validator's exit status is propagated.
+        node scripts/validate-changelog.cjs CHANGELOG.md
+        status=$?
+        if [ "$status" -eq 0 ]; then
+          echo "✓ CHANGELOG.md passed the basic format check"
+        else
+          echo "❌ CHANGELOG.md failed the basic format check - see errors above"
+          exit "$status"
         fi
 
     jest-coverage:
@@ -80,7 +80,8 @@ commit-msg:
       description: "Validate commit message format"
       run: |
         commit_msg=$(cat "$1")
-        if [[ ! "$commit_msg" =~ ^[a-z]+(\([a-z-]+\))?:.* ]] && [[ ! "$commit_msg" =~ ^Merge ]]; then
+        first_line=$(printf '%s\n' "$commit_msg" | head -n 1)
+        if ! printf '%s\n' "$first_line" | grep -Eq '^[a-z]+(\([a-z-]+\))?:' && ! printf '%s\n' "$first_line" | grep -Eq '^Merge'; then
           echo "❌ Commit message must follow format: type(scope): message"
           echo "Examples:"
           echo "  - feat(branch-mapper): add breaking change detection"

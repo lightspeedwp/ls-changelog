@@ -5,9 +5,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
-const SCRIPT_PATH = path.join(__dirname, '../scripts/validate-changelog.cjs');
+const SCRIPT_PATH = path.resolve(__dirname, '../validate-changelog.cjs');
 const TEMP_DIR = path.join(__dirname, './temp-changelogs');
 
 // Setup and teardown
@@ -32,13 +32,15 @@ afterAll(() => {
   }
 });
 
-// Helper function to run validation
+// Helper function to run validation.
+// Uses an argument vector (no shell) so paths containing spaces or quotes are safe.
 function validateChangelog(filename, options = '') {
+  const args = [SCRIPT_PATH, path.join(TEMP_DIR, filename)];
+  if (options) {
+    args.push(...options.split(/\s+/).filter(Boolean));
+  }
   try {
-    const result = execSync(
-      `node ${SCRIPT_PATH} "${path.join(TEMP_DIR, filename)}" ${options}`,
-      { encoding: 'utf8' }
-    );
+    const result = execFileSync(process.execPath, args, { encoding: 'utf8' });
     return { success: true, output: result };
   } catch (error) {
     return { success: false, output: error.stdout || error.message };
@@ -211,7 +213,7 @@ All notable changes to this project are documented here.
     fs.writeFileSync(path.join(TEMP_DIR, 'no-title.md'), content);
     const result = validateChangelog('no-title.md');
     expect(result.success).toBe(false);
-    expect(result.output).toContain('no releases');
+    expect(result.output).toContain('Missing required "# Changelog" title');
   });
 
   test('should reject non-existent file', () => {
@@ -454,6 +456,20 @@ describe('Changelog Validation - Edge Cases', () => {
     }
     fs.writeFileSync(path.join(TEMP_DIR, 'long-changelog.md'), content);
     const result = validateChangelog('long-changelog.md');
+    expect(result.success).toBe(true);
+  });
+
+  test('should handle a target path containing spaces', () => {
+    const content = `# Changelog
+
+## [1.0.0] - 2026-10-30
+
+### Added
+- Feature
+
+`;
+    fs.writeFileSync(path.join(TEMP_DIR, 'path with spaces.md'), content);
+    const result = validateChangelog('path with spaces.md');
     expect(result.success).toBe(true);
   });
 

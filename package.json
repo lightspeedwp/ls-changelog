@@ -4,9 +4,9 @@
   "description": "Changelog skill for managing CHANGELOG.md files",
   "scripts": {
     "test": "npm run test:jest && npm run test:bats",
-    "test:jest": "jest --coverage --coverage-threshold='{\"lines\":90,\"functions\":90,\"branches\":90,\"statements\":90}' __tests__",
+    "test:jest": "jest --roots=scripts --coverage --coverage-threshold='{\"lines\":90,\"functions\":90,\"branches\":90,\"statements\":90}' __tests__",
     "test:bats": "bats tests",
-    "test:watch": "jest --watch __tests__"
+    "test:watch": "jest --roots=scripts --watch __tests__"
   },
   "devDependencies": {
     "jest": "^29.7.0"
