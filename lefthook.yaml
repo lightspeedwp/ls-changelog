@@ -14,9 +14,9 @@ pre-commit:
       run: |
         if git rev-parse --verify HEAD >/dev/null 2>&1; then
           branch=$(git rev-parse --abbrev-ref HEAD)
-          if ! printf '%s\n' "$branch" | grep -Eq '^(feature|fix|docs|refactor|test|chore|security)/' && [ "$branch" != "main" ] && [ "$branch" != "master" ] && [ "$branch" != "develop" ]; then
+          if ! printf '%s\n' "$branch" | grep -Eq '^(feature|feat|fix|hotfix|docs|refactor|test|chore|security|perf|ci|build|deps|design|a11y|task|release)/' && [ "$branch" != "main" ] && [ "$branch" != "master" ] && [ "$branch" != "develop" ]; then
             echo "❌ Invalid branch name: $branch"
-            echo "Must follow: type/description (feature/, fix/, docs/, refactor/, test/, chore/, security/)"
+            echo "Must follow: type/description (feature/, feat/, fix/, hotfix/, docs/, refactor/, test/, chore/, security/, perf/, ci/, build/, deps/, design/, a11y/, task/, release/)"
             exit 1
           fi
           echo "✓ Branch naming valid: $branch"

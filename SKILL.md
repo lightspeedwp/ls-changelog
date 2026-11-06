@@ -33,7 +33,7 @@ Node.js 18+ is required to run the helpers. Both helpers use Node's standard lib
 Resolve helper paths from this skill directory and keep the working directory in the target project. Claude Code supplies `${CLAUDE_SKILL_DIR}` for this root entrypoint:
 
 ```bash
-node "${CLAUDE_SKILL_DIR}/sub-skills/branch-context-mapper/scripts/branch-context-mapper.cjs" 'feature/example-change'
+node "${CLAUDE_SKILL_DIR}/sub-skills/branch-context-mapper/scripts/branch-context-mapper.cjs" 'feat/example-change'
 node "${CLAUDE_SKILL_DIR}/sub-skills/changelog-validator/scripts/validate-changelog.cjs" "/absolute/path/to/target/CHANGELOG.md" --json
 ```
 
