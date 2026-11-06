@@ -3,6 +3,8 @@
 **Phase 1 Complete** | Phase 2 Ready for Team Execution  
 **Roadmap Version:** 1.0 | Created: 2026-10-30 | Updated: 2026-10-30
 
+> **Current state:** This roadmap describes planned work. The helpers currently implement only a basic title and version-heading check (sub-skill validator) and a fixed branch-type lookup (mapper). Governance rules, scoring and release readiness are manual review guidance, not implemented checks.
+
 ---
 
 ## Overview

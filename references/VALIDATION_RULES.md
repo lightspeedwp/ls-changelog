@@ -108,7 +108,7 @@ These rules are not yet automated but should be checked:
 - **Fix**: Add `(#PR-NUMBER)` to each entry
 
 ### 11. Entry Length
-- **Rule**: Each entry should not exceed 100 characters (including PR ref)
+- **Rule**: Each entry should not exceed 100 characters (including PR ref). Local guideline only: the organisation's canonical rule cites 250 characters, and which applies is an open policy question. The helpers do not enforce it
 - **Count**: Character count from dash to closing paren
 - **Valid** (73 chars): `- Added support for async handlers — improves performance (#567)`
 - **Invalid** (118 chars): `- Added support for async handlers with new concurrency tuning options that allow better performance (#567)`
@@ -143,27 +143,27 @@ These rules are not yet automated but should be checked:
 ## CI/CD Validation
 
 ### PR Submission Check
-When a PR is submitted, a stricter validator runs:
+The organisation's CI may run a stricter validator. It lives in `lightspeedwp/.github` (not in this repository) and its behaviour is not verified here:
 
 ```bash
 node .github/validation/changelog/bin/validate.js --trigger pr_submission
 ```
 
-This applies all 14 rules above plus:
-- Maximum entry length: 100 chars (enforced)
-- Required PR/issue references (enforced)
-- Tense and capitalization (enforced)
+The rules below are the intended targets for that validator, not checks implemented by this repository's helpers:
+- Maximum entry length: 100 chars (see the entry-length note in rule 11)
+- Required PR/issue references
+- Tense and capitalization
 - No abbreviations without explanation
 - No changes to released versions
 
 ### Pre-release Check
-Before releasing:
+Before releasing, run the repository's root validator:
 
 ```bash
 node scripts/validate-changelog.cjs CHANGELOG.md
 ```
 
-This checks all 5 automated rules. All must pass before merging.
+It checks only the `# Changelog` title, that at least one release exists, version and date formats, and that `[Unreleased]` has no date. Every other rule in this document is a manual review item.
 
 ## Validation Error Examples
 
@@ -188,6 +188,8 @@ Expected: ## [Unreleased]
 Fix: Remove date, change "## [Unreleased] - 2026-10-30" to "## [Unreleased]"
 ```
 
+The error examples 4 and 5 below are illustrative: the current helpers do not emit them.
+
 ### Error 4: Entry Too Long
 ```
 Error: Entry exceeds 100 characters (118 chars)
@@ -203,6 +205,8 @@ Fix: Add PR number: "- Fixed memory leak in startup (#1234)"
 ```
 
 ## Validation Output
+
+The examples below are illustrative. The root validator prints `✓ Changelog validation passed` or a list of errors; it does not print per-rule lines.
 
 ### Valid Changelog
 ```
@@ -226,16 +230,15 @@ Fix: Add PR number: "- Fixed memory leak in startup (#1234)"
 
 ### Locally
 ```bash
-node scripts/validate-changelog.cjs CHANGELOG.md --verbose
+node scripts/validate-changelog.cjs CHANGELOG.md
+node scripts/validate-changelog.cjs CHANGELOG.md --json
 ```
+(`--verbose` is accepted by the root validator but adds no extra output.)
 
 ### In CI (pre-merge)
 ```bash
 node .github/validation/changelog/bin/validate.js CHANGELOG.md --trigger pr_submission
 ```
 
-### With automatic fixes
-```bash
-node scripts/validate-changelog.cjs CHANGELOG.md --fix
-```
-(When available, this attempts to fix common issues)
+### Automatic fixes
+Not implemented: neither validator supports `--fix`. Correct reported issues by editing the changelog.

@@ -4,6 +4,8 @@ Design tokens, templates, and shared resources.
 
 ## Contents
 
+This directory currently contains only this README. The categories below are planned, not present:
+
 - **Design Tokens** - Color schemes, typography, spacing
 - **Templates** - Email templates, document templates
 - **Icons** - Icon sets and SVG assets
@@ -11,10 +13,10 @@ Design tokens, templates, and shared resources.
 
 ## Using Assets
 
-Reference assets from documentation:
+Reference assets from documentation in `docs/` (paths are relative to that directory; the example targets do not exist yet):
 ```markdown
-See [design tokens](assets/) for color definitions
-Use [templates](assets/templates/) for consistent formatting
+See [design tokens](../assets/) for color definitions
+Use [templates](../assets/templates/) for consistent formatting
 ```
 
 ## Standards

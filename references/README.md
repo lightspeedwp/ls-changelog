@@ -4,18 +4,21 @@ Documentation of standards, rules, and strategies.
 
 ## Governance Rules
 
-- **GOVERNANCE_RULES.md** - 6 core principles explained
-- **QUALITY_SCORING.md** - Scoring methodology and thresholds
+- [GOVERNANCE_RULES.md](../sub-skills/changelog-validator/references/GOVERNANCE_RULES.md) - 6 core principles explained
+- QUALITY_SCORING.md - Planned; not present in this repository
 
 ## Strategies
 
-- **BRANCHING_STRATEGY.md** - LightSpeed WP branch naming and types
-- **SEMVER_RULES.md** - Semantic versioning rules and examples
+- [BRANCHING_STRATEGY.md](../sub-skills/branch-context-mapper/references/BRANCHING_STRATEGY.md) - LightSpeed WP branch naming and types
+- SEMVER_RULES.md - Planned; not present in this repository
 
 ## Standards
 
-- **KEEP_A_CHANGELOG.md** - Keep a Changelog 1.1.0 format
-- **WORDPRESS_PATTERNS.md** - WordPress-specific patterns and examples
+- [VALIDATION_RULES.md](VALIDATION_RULES.md) - Validation rules and examples
+- [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) - External format reference (no local copy)
+- WORDPRESS_PATTERNS.md - Planned; not present in this repository
+
+The two JSON files in this directory are evaluation scenario sets for the mapper and the validator.
 
 ## Using These References
 
