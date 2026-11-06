@@ -64,6 +64,25 @@
       "testing": {
         "vitest": "sub-skills/changelog-link-verifier/__tests__/"
       }
+    },
+    {
+      "id": "changelog-summariser",
+      "name": "Changelog Summariser",
+      "description": "Read-only condensing of a large changelog into a summary, or extraction of one release's notes, keeping every entry's PR and issue links. It reads only the changelog, prints to standard output and publishes nothing; multi-channel release communication stays with the release skill",
+      "type": "skill",
+      "path": "sub-skills/changelog-summariser/",
+      "main": "SKILL.md",
+      "capabilities": ["changelog-summary", "release-notes-extraction"],
+      "tools": [
+        {
+          "name": "summarise-changelog.ts",
+          "description": "Prints a condensed changelog summary or one release's notes as Markdown or JSON",
+          "path": "sub-skills/changelog-summariser/scripts/summarise-changelog.ts"
+        }
+      ],
+      "testing": {
+        "vitest": "sub-skills/changelog-summariser/__tests__/"
+      }
     }
   ],
   "relatedSkills": [

@@ -284,5 +284,6 @@ export function main(argv: string[], io: Io): number {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  process.exit(main(process.argv.slice(2), { log: console.log, error: console.error }));
+  // Set the exit code instead of calling process.exit() so large output piped to another process is not cut off.
+  process.exitCode = main(process.argv.slice(2), { log: console.log, error: console.error });
 }
