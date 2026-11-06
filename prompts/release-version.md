@@ -1,6 +1,10 @@
 # Prompt: Create a Release Version
 
-Convert your `[Unreleased]` section to a versioned release with a date and semantic version bump.
+Convert your `[Unreleased]` section to a versioned release with a date and semantic version bump. Here the new version is worked out from the current version and the release type. (To convert with a version you are given, see [create-release.md](create-release.md).)
+
+## Scope
+
+This prompt describes a manual edit of `CHANGELOG.md`. It does not commit, tag, push or publish anything; those are separate release actions that need explicit authorisation. Use the version and release date you are given, and do not invent either. The `(#1089)` style in the examples follows [Changelog Format](../docs/CHANGELOG_FORMAT.md); the [link verifier](../sub-skills/changelog-link-verifier/SKILL.md) is stricter and expects an adjacent PR link and issue link on each entry.
 
 ## Input
 
@@ -60,3 +64,20 @@ The `[Unreleased]` section becomes `[1.1.0] - 2026-10-30`, and a new empty `[Unr
 - Create new `[Unreleased]` for future entries
 - Add horizontal rule (`---`) before previous versions for readability
 - Keep versions in descending order
+- The bump is a judgement from the actual changes; the branch mapper's version hint is advisory only
+
+## Verify
+
+From this repository's root, run the root validator on the result (it checks the title, version and date formats, and that `[Unreleased]` has no date):
+
+```bash
+node scripts/validate-changelog.cjs CHANGELOG.md
+```
+
+For a target project, use the sub-skill helper (it only checks for a title and a version heading):
+
+```bash
+node "${CLAUDE_SKILL_DIR}/sub-skills/changelog-validator/scripts/validate-changelog.cjs" "/absolute/path/to/CHANGELOG.md" --json
+```
+
+Entry quality, version order and the choice of bump remain manual checks.

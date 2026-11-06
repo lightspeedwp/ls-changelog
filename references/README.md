@@ -18,7 +18,7 @@ Documentation of standards, rules, and strategies.
 - [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) - External format reference (no local copy)
 - WORDPRESS_PATTERNS.md - Planned; not present in this repository
 
-The two JSON files in this directory are evaluation scenario sets for the mapper and the validator.
+The two JSON files in this directory are trigger-routing examples for the mapper and the validator: each item is a user query plus whether the skill should trigger. They are historical, hand-written examples, not the results of any executed evaluation run, and they make no claim about what the helpers implement.
 
 ## Using These References
 
