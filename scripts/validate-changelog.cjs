@@ -185,22 +185,27 @@ class ChangelogValidator {
   }
 }
 
-// Main execution
-const args = process.argv.slice(2);
-if (args.length === 0) {
-  console.error('Usage: node validate-changelog.cjs CHANGELOG.md [--verbose] [--json]');
-  process.exit(1);
+// Exported so the validator can be tested in-process (and so V8 can instrument it).
+module.exports = { ChangelogValidator };
+
+// Main execution: only when run as a script, not when required
+if (require.main === module) {
+  const args = process.argv.slice(2);
+  if (args.length === 0) {
+    console.error('Usage: node validate-changelog.cjs CHANGELOG.md [--verbose] [--json]');
+    process.exit(1);
+  }
+
+  const filePath = args[0];
+  const options = {
+    verbose: args.includes('--verbose'),
+    json: args.includes('--json')
+  };
+
+  const validator = new ChangelogValidator(filePath, options);
+  const isValid = validator.validate();
+  const report = validator.report();
+
+  console.log(report);
+  process.exit(isValid ? 0 : 1);
 }
-
-const filePath = args[0];
-const options = {
-  verbose: args.includes('--verbose'),
-  json: args.includes('--json')
-};
-
-const validator = new ChangelogValidator(filePath, options);
-const isValid = validator.validate();
-const report = validator.report();
-
-console.log(report);
-process.exit(isValid ? 0 : 1);

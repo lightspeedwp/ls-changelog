@@ -5,6 +5,7 @@ All notable changes to the LightSpeed WP Changelog Generator project are documen
 ## [Unreleased]
 
 ### Added
+- Vitest 5.1.0 with V8 coverage replaces Jest in all three packages, with an 80% global coverage threshold; Renovate configuration and single-run Vitest hooks added ([PR #8](https://github.com/lightspeedwp/ls-wp-changelog/pull/8), [LS-4775](https://linear.app/lightspeedwp/issue/LS-4775/refactor-ls-wp-changelog-remove-dependabot-add-renovate-migrate-jest))
 - Changelog summariser sub-skill that condenses a large changelog or extracts one release's notes while keeping PR and issue links ([PR #7](https://github.com/lightspeedwp/ls-wp-changelog/pull/7), [LS-4780](https://linear.app/lightspeedwp/issue/LS-4780/refactor-ls-wp-changelog-add-release-notes-and-changelog-summaries-sub))
 - Link verification sub-skill that reports changelog entries missing an adjacent PR link and issue link ([PR #6](https://github.com/lightspeedwp/ls-wp-changelog/pull/6), [LS-4779](https://linear.app/lightspeedwp/issue/LS-4779/refactor-ls-wp-changelog-add-changelog-link-verification-and-release))
 - Branch mapper and branch hook accept the supported organisation branch types ([PR #2](https://github.com/lightspeedwp/ls-wp-changelog/pull/2), [LS-4774](https://linear.app/lightspeedwp/issue/LS-4774/refactor-ls-wp-changelog-align-branch-handling-with-the-org-branch))

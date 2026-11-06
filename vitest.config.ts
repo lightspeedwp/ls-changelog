@@ -13,7 +13,9 @@ export default defineConfig({
       // Every intended production script is in the denominator, executed or not.
       include: ['scripts/**/*.{cjs,mjs,js,ts}', 'sub-skills/**/scripts/**/*.{cjs,mjs,js,ts}'],
       // Test files only; no production file is excluded.
-      exclude: ['**/__tests__/**']
+      exclude: ['**/__tests__/**'],
+      // Agreed starting point (raise toward 90% over time). Global, over all production scripts.
+      thresholds: { statements: 80, branches: 80, functions: 80, lines: 80 }
     }
   }
 });

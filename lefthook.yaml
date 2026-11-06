@@ -42,11 +42,11 @@ pre-commit:
       description: "Run all Vitest tests once (single run, no watch)"
       run: |
         # One run covers the root package and both sub-skills; a failing test fails the hook.
-        # Coverage is reported (text, json-summary, lcov) but no threshold is enforced here.
+        # Coverage is reported (text, json-summary, lcov) and the 80% global threshold is enforced.
         npm run test:vitest --silent
         status=$?
         if [ "$status" -ne 0 ]; then
-          echo "❌ Vitest tests failed"
+          echo "❌ Vitest tests or the coverage threshold failed"
           exit "$status"
         fi
         echo "✓ Vitest tests passed"

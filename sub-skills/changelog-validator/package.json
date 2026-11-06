@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "npm run lint && npm run test:vitest && npm run test:bats",
-    "test:vitest": "npm --prefix ../.. run test:vitest -- sub-skills/changelog-validator",
+    "test:vitest": "npm --prefix ../.. run test:unit -- sub-skills/changelog-validator",
     "test:bats": "bats tests",
     "test:watch": "npm --prefix ../.. run test:watch -- sub-skills/changelog-validator",
     "lint": "npm run lint:js && npm run format:check",
