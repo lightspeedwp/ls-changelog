@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "npm run lint && npm run test:vitest && npm run test:bats",
-    "test:vitest": "npm --prefix ../.. run test:vitest -- sub-skills/branch-context-mapper",
+    "test:vitest": "npm --prefix ../.. run test:unit -- sub-skills/branch-context-mapper",
     "test:bats": "bats tests",
     "test:watch": "npm --prefix ../.. run test:watch -- sub-skills/branch-context-mapper",
     "lint": "npm run lint:js && npm run format:check",

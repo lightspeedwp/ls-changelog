@@ -52,10 +52,10 @@
     "testTimeout": 120000,
     "coverage": true,
     "coverageThreshold": {
-      "lines": 90,
-      "functions": 90,
-      "branches": 90,
-      "statements": 90
+      "lines": 80,
+      "functions": 80,
+      "branches": 80,
+      "statements": 80
     },
     "bashCompatibility": "3.2+",
     "commands": {
@@ -116,7 +116,7 @@
     "engine": "lefthook",
     "config": "lefthook.yaml",
     "hooks": {
-      "pre-commit": "Branch type check, root changelog format check, Vitest tests (coverage reported, no threshold enforced) and BATS tests",
+      "pre-commit": "Branch type check, root changelog format check, Vitest tests (80% coverage threshold) and BATS tests",
       "commit-msg": "Commit message format check (type(scope): message)",
       "pre-push": "Final validation before push"
     }

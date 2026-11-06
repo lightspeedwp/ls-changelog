@@ -12,6 +12,7 @@
   "scripts": {
     "test": "npm run test:vitest && npm run test:bats",
     "test:vitest": "vitest run --coverage --configLoader runner",
+    "test:unit": "vitest run --configLoader runner",
     "test:bats": "bats tests",
     "test:watch": "vitest --configLoader runner"
   },

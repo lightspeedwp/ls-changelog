@@ -33,11 +33,14 @@ Vitest 5.1.0 and `@vitest/coverage-v8` 5.1.0 are pinned to the identical version
 
 Coverage uses the V8 provider and writes `text`, `json-summary` and `lcov` reports to `coverage/` (already git-ignored). The `lcov` reporter also writes `coverage/lcov-report/index.html`, which `docs/TEAM_ONBOARDING.md` refers to. Every intended production script (`scripts/**` and `sub-skills/**/scripts/**`, `.cjs`, `.mjs`, `.js` and `.ts`) is in the denominator whether or not a test runs it; only `__tests__` files are excluded.
 
-Known gaps and open items (recorded, not decided):
+Thresholds: the global `statements`, `branches`, `functions` and `lines` thresholds are 80% (set in `vitest.config.ts`). That is the agreed starting point, to be raised toward 90% over time as the agent is used and tested; the earlier Jest runs configured 90% and never met it, and Jest and V8 percentages are not equivalent, so 80% is a fresh baseline, not a carried-over number. The threshold applies to the whole root run (`npm run test:vitest`, `npm test` and the pre-commit hook). Sub-skill `npm test` runs execute only their own package's tests through `npm run test:unit`, so they skip the global threshold (a partial run cannot meet it).
 
-- **Subprocess coverage:** the root `scripts/validate-changelog.cjs` is only exercised by spawning a child process, so V8 reports 0% for it. That is a measurement gap, not evidence the code is untested. The two nested helpers are loaded in-process and are instrumented.
-- **Thresholds:** the agreed starting point is 80% (global lines, functions, branches and statements), to be raised toward 90% over time as the agent is used and tested (decision from Ash). It is not enforced yet. The previous Jest runs configured 90% in the root and both sub-skill packages, mirrored in `.claude/settings.json`, and never met it. Today's V8 totals are about 76% statements, 69% branches, 82% functions and 75% lines, almost entirely because the root validator's 92 statements read 0% (the subprocess gap above); the other four scripts are between 55% and 99%. Turning on 80% now would make `npm test` and the pre-commit hook fail. Follow-up: make the root validator importable, test it in-process, then set `coverage.thresholds` to 80 in `vitest.config.ts` and update the settings mirror.
-- **Hooks:** `lefthook.yaml` runs the Vitest suite once per commit (`vitest-tests`) and fails the commit on any test failure. Hooks are not installed by this repository.
+Known limits:
+
+- **Subprocess coverage:** the CLI tests (`scripts/__tests__/validate-changelog.test.js` and the BATS suites) spawn child processes, which V8 does not instrument. The root validator's real code is measured through `scripts/__tests__/validate-changelog.in-process.test.js`, which loads `ChangelogValidator` directly (the script exports it and only runs its CLI when executed).
+  The "fewer than 80% pass" pre-commit request is read as this coverage threshold, not a test pass rate.
+
+Hooks: `lefthook.yaml` runs the Vitest suite once per commit (`vitest-tests`) and fails the commit on a failing test or a missed coverage threshold. Hooks are not installed by this repository.
 
 ## Dependency updates
 
