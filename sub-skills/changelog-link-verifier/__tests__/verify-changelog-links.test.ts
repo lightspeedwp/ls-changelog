@@ -276,6 +276,23 @@ describe('CLI process', () => {
     expect(result.stdout).toContain('line 8 [Unreleased]: missing PR link, missing issue link');
   });
 
+  test('does not truncate large failure output written to a pipe', () => {
+    const lines = ['# Changelog', '', '## [Unreleased]', ''];
+    for (let n = 1; n <= 1500; n += 1) {
+      lines.push(
+        `- Entry number ${n} with no links at all so that every entry is reported as failing`
+      );
+    }
+    const file = write('large-bad.md', lines.join('\n'));
+    const result = spawnSync(process.execPath, [...node, file], {
+      encoding: 'utf8',
+      maxBuffer: 64 * 1024 * 1024
+    });
+    expect(result.status).toBe(1);
+    expect(result.stdout.length).toBeGreaterThan(100000);
+    expect(result.stdout).toContain('Entry number 1500 with no links');
+  });
+
   test('exits 2 when no file is given', () => {
     const result = spawnSync(process.execPath, node, { encoding: 'utf8' });
     expect(result.status).toBe(2);

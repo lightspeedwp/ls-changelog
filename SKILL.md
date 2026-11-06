@@ -5,7 +5,7 @@ description: Create, update, or review LightSpeed WP changelogs and release note
 
 # LightSpeed WP Changelog
 
-Maintain the target project's changelog using Keep a Changelog structure and LightSpeed WP conventions. This repository is one Claude Code skill with three bundled sub-skills. Read their files as needed; they are supporting instructions, not separate slash commands in this installation.
+Maintain the target project's changelog using Keep a Changelog structure and LightSpeed WP conventions. This repository is one Claude Code skill with four bundled sub-skills. Read their files as needed; they are supporting instructions, not separate slash commands in this installation.
 
 ## Choose the workflow
 
@@ -14,6 +14,7 @@ Maintain the target project's changelog using Keep a Changelog structure and Lig
 | Analyse a branch, choose a category, or recommend a version bump | [Branch Context Mapper](sub-skills/branch-context-mapper/SKILL.md)                 |
 | Validate format, review governance, or assess release readiness  | [Changelog Validator](sub-skills/changelog-validator/SKILL.md)                     |
 | Check that every entry has a PR link and an issue link           | [Changelog Link Verifier](sub-skills/changelog-link-verifier/SKILL.md)             |
+| Condense a large changelog or extract one release's notes        | [Changelog Summariser](sub-skills/changelog-summariser/SKILL.md)                   |
 | Create or edit changelog entries                                 | [Changelog Guidelines](docs/CHANGELOG_GUIDELINES.md), then the validator sub-skill |
 
 For a combined request, use the mapper to inform entries, then the validator and the link verifier after editing. Load only the resources needed for the request. The guidelines describe the desired format; use the commands and implementation limits in the sub-skills for actual validation.
@@ -37,9 +38,10 @@ Resolve helper paths from this skill directory and keep the working directory in
 node "${CLAUDE_SKILL_DIR}/sub-skills/branch-context-mapper/scripts/branch-context-mapper.cjs" 'feat/example-change'
 node "${CLAUDE_SKILL_DIR}/sub-skills/changelog-validator/scripts/validate-changelog.cjs" "/absolute/path/to/target/CHANGELOG.md" --json
 node "${CLAUDE_SKILL_DIR}/sub-skills/changelog-link-verifier/scripts/verify-changelog-links.ts" "/absolute/path/to/target/CHANGELOG.md"
+node "${CLAUDE_SKILL_DIR}/sub-skills/changelog-summariser/scripts/summarise-changelog.ts" "/absolute/path/to/target/CHANGELOG.md"
 ```
 
-The link verifier is TypeScript and needs Node.js 24 LTS (or 22.18+); see its [instructions](sub-skills/changelog-link-verifier/SKILL.md).
+The link verifier and the summariser are TypeScript and need Node.js 24 LTS (or 22.18+); see their instructions ([verifier](sub-skills/changelog-link-verifier/SKILL.md), [summariser](sub-skills/changelog-summariser/SKILL.md)).
 
 When reading a sub-skill as a supporting file, resolve its relative links and script paths from that sub-skill's directory. Do not assume a second variable substitution or a separately installed sub-skill.
 
