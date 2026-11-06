@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Maps git branch types to changelog categories and version bumps",
   "main": "scripts/branch-context-mapper.cjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightspeedwp/ls-wp-changelog.git",
+    "directory": "sub-skills/branch-context-mapper"
+  },
   "scripts": {
     "test": "npm run lint && npm run test:jest && npm run test:bats",
     "test:jest": "jest --coverage --coverage-threshold='{\"global\":{\"branches\":90,\"functions\":90,\"lines\":90,\"statements\":90}}'",

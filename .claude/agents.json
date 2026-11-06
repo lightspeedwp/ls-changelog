@@ -4,16 +4,15 @@
     {
       "id": "branch-context-mapper",
       "name": "Branch Context Mapper",
-      "description": "Analyzes git branch names and determines changelog categories, semantic version bumps, and breaking changes for WordPress block themes and plugins",
+      "description": "Advisory helper that maps a branch type to a changelog category and version-bump hint. It does not detect breaking changes or fully validate Git branch names",
       "type": "skill",
       "path": "sub-skills/branch-context-mapper/",
       "main": "SKILL.md",
       "capabilities": [
         "branch-analysis",
         "changelog-mapping",
-        "version-bump-calculation",
-        "breaking-change-detection",
-        "naming-validation"
+        "version-bump-hint",
+        "branch-type-check"
       ],
       "tools": [
         {
@@ -30,21 +29,15 @@
     {
       "id": "changelog-validator",
       "name": "Changelog Validator",
-      "description": "Validates CHANGELOG.md format, enforces 6 governance rules, calculates quality scores (0-100), and determines release readiness for WordPress projects",
+      "description": "Basic helper check that a changelog has a title and a version heading, plus manual guidance for governance review. The helper score, governance fields and release-readiness flag are placeholders; quality and release readiness need manual review",
       "type": "skill",
       "path": "sub-skills/changelog-validator/",
       "main": "SKILL.md",
-      "capabilities": [
-        "format-validation",
-        "governance-enforcement",
-        "quality-scoring",
-        "release-readiness",
-        "error-reporting"
-      ],
+      "capabilities": ["basic-format-check", "manual-governance-guidance", "error-reporting"],
       "tools": [
         {
           "name": "validate-changelog.cjs",
-          "description": "Core changelog validation and governance enforcement",
+          "description": "Basic changelog title and version-heading check",
           "path": "sub-skills/changelog-validator/scripts/validate-changelog.cjs"
         }
       ],
@@ -82,11 +75,11 @@
       "description": "Standard workflow for developing a new feature with proper changelog entry",
       "steps": [
         "Create feature/ branch with proper naming convention",
-        "Branch-context-mapper validates branch name and maps to changelog category",
+        "Branch-context-mapper maps the branch type to a changelog category hint",
         "Develop feature with tests (TDD: red → green → refactor)",
         "Run npm test to verify 90%+ coverage",
         "Add changelog entry in [Unreleased] section",
-        "Changelog-validator scores quality (target: 90+)",
+        "Changelog-validator runs the basic check; review quality manually",
         "Commit with validated message (lefthook validates)",
         "Open PR with auto-routed template",
         "Merge when changelog validates and tests pass"
@@ -97,12 +90,12 @@
       "description": "Process for fixing bugs with proper traceability",
       "steps": [
         "Create fix/ branch following conventions",
-        "Branch-context-mapper validates and maps to Fixed category",
+        "Branch-context-mapper maps the branch type to the Fixed category",
         "Write failing test reproducing the bug",
         "Implement fix until test passes",
         "Run full test suite (90%+ coverage required)",
         "Add changelog entry explaining what was fixed",
-        "Changelog-validator confirms quality (90+)",
+        "Changelog-validator runs the basic check; review quality manually",
         "Commit and push with validated message",
         "Open PR; merge when all checks pass"
       ]
@@ -112,10 +105,10 @@
       "description": "Expedited process for security vulnerabilities",
       "steps": [
         "Create security/ branch with vulnerability details",
-        "Branch-context-mapper validates and maps to Security category",
+        "Branch-context-mapper maps the branch type to the Security category",
         "Implement fix with test coverage",
         "Add changelog entry: 'Fixed [VULNERABILITY] that allowed [IMPACT]'",
-        "Changelog-validator ensures clarity and completeness",
+        "Review clarity and completeness manually; the helper runs the basic check only",
         "Commit with security context in message",
         "Open PR requesting immediate review",
         "Fast-track merge when security team approves"
@@ -126,9 +119,9 @@
       "description": "Validate changelog and prepare for semantic version release",
       "steps": [
         "Verify [Unreleased] section contains all changes",
-        "Run changelog-validator with --release-version flag",
-        "Validate quality scores (all entries 90+)",
-        "Verify governance compliance (immutability, atomicity, etc.)",
+        "Run changelog-validator on the changelog (the helper has no --release-version option)",
+        "Review entry quality manually (the helper score is a fixed placeholder)",
+        "Review governance principles manually (immutability, atomicity, etc.)",
         "Move entries to version section (e.g., [1.2.0] - 2026-10-31)",
         "Create release PR with updated CHANGELOG.md",
         "Merge release PR and create git tag",
@@ -137,14 +130,14 @@
     },
     {
       "name": "Complete CI/CD Pipeline",
-      "description": "Full automation from branch to release with governance gates",
+      "description": "Target pipeline from branch to release (proposed; this repository contains no CI workflow, and the helpers do not enforce quality or governance gates)",
       "steps": [
         "Developer pushes to feature/ branch",
         "Pre-commit hook: branch validation, tests, changelog check",
         "CI runs: Jest (90%+), BATS (100%), linting",
         "PR created with routed template based on branch type",
-        "Changelog-validator runs and scores all entries",
-        "CI gates: must pass 90%+ coverage + quality scoring",
+        "Changelog-validator runs the basic check",
+        "Target CI gate: tests pass at the configured coverage threshold",
         "Team review: changelog quality, code quality, governance",
         "Merge: all gates passed, changelog ready",
         "Release: changelog validated, semantic version bumped, tagged"
@@ -157,12 +150,12 @@
     "phases": {
       "phase1": {
         "status": "complete",
-        "description": "6 core governance rules, 7 branch types, Lefthook integration",
+        "description": "Basic helpers (a fixed branch-type list and a title/version-heading check) and Lefthook configuration; the six governance principles are manual review guidance",
         "date": "2026-10-31"
       },
       "phase2": {
         "status": "planned",
-        "description": "All 24 branch types, all 20 rules, YAML field validation, PR template routing",
+        "description": "Planned: remaining organisation branch types, broader rule checks, YAML field validation, PR template routing",
         "timeline": "8-12 weeks"
       },
       "phase3": {
@@ -174,7 +167,7 @@
   "qualityGates": [
     {
       "name": "Test Coverage",
-      "description": "90%+ coverage (lines, functions, branches, statements)",
+      "description": "Configured 90%+ coverage threshold (lines, functions, branches, statements); a configured value, not a measured result",
       "threshold": 90,
       "blocking": true
     },
@@ -186,15 +179,15 @@
     },
     {
       "name": "Changelog Quality Score",
-      "description": "All entries must score 90+ on quality scale",
+      "description": "Manual review target: the helper returns a fixed placeholder score and does not compute quality",
       "threshold": 90,
-      "blocking": true
+      "blocking": false
     },
     {
       "name": "Governance Compliance",
-      "description": "6 governance rules: immutability, atomicity, consistency, completeness, clarity, traceability",
+      "description": "Manual review of six governance principles: immutability, atomicity, consistency, completeness, clarity, traceability; not enforced by the helper",
       "threshold": 100,
-      "blocking": true
+      "blocking": false
     }
   ]
 }
