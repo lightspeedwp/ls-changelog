@@ -1,6 +1,6 @@
 # Claude Project Instructions
 
-This repository is the `ls-changelog` Claude Code skill, installed at `~/.claude/skills/ls-changelog/` for personal use.
+This repository (`lightspeedwp/ls-wp-changelog`) is the `ls-changelog` Claude Code skill, installed at `~/.claude/skills/ls-changelog/` for personal use. The runtime skill name stays `ls-changelog`.
 
 ## Entrypoints and resources
 
@@ -15,8 +15,8 @@ The sub-skills remain inside this repository as supporting files. The root skill
 
 Preserve the parent skill and bundled sub-skill layout. Keep the root entrypoint concise and link specialised guidance rather than duplicating it. Do not move or overwrite unrelated personal skills or agents.
 
-The two sub-skills have independent `package.json` files and lockfiles. Run development commands in the relevant sub-skill directory; there is no root npm package. Both runtime scripts require Node.js 18+ and use only built-in modules. `npm test` runs lint, Jest coverage checks, and BATS; BATS is a separate prerequisite. Verify results before making pass or coverage claims.
+There are three npm packages: a root package (`@lightspeedwp/changelog-skill`, covering the root `scripts/validate-changelog.cjs`) and one in each sub-skill. No lockfiles are tracked and `package-lock.json` is git-ignored, so use `npm install` rather than `npm ci`. Run development commands in the relevant package directory. The runtime helper scripts require Node.js 18+ and use only built-in modules. In each sub-skill `npm test` runs lint, Jest coverage checks, and BATS; at the root it runs Jest and BATS. BATS is a separate prerequisite. Verify results before making pass or coverage claims.
 
 Use the existing branch and preserve local changes. Keep commits and external actions within the user's authorised scope. Do not add another model's attribution to work it did not perform.
 
-Repository: https://github.com/lightspeedwp/ls-changelog
+Repository: https://github.com/lightspeedwp/ls-wp-changelog

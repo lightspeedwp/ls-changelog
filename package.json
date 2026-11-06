@@ -2,6 +2,10 @@
   "name": "@lightspeedwp/changelog-skill",
   "version": "1.0.0",
   "description": "Changelog skill for managing CHANGELOG.md files",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightspeedwp/ls-wp-changelog.git"
+  },
   "scripts": {
     "test": "npm run test:jest && npm run test:bats",
     "test:jest": "jest --roots=scripts --coverage --coverage-threshold='{\"lines\":90,\"functions\":90,\"branches\":90,\"statements\":90}' __tests__",

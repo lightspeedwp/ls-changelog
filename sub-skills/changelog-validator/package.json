@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Validates changelog format and enforces governance rules",
   "main": "scripts/validate-changelog.cjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightspeedwp/ls-wp-changelog.git",
+    "directory": "sub-skills/changelog-validator"
+  },
   "scripts": {
     "test": "npm run lint && npm run test:jest && npm run test:bats",
     "test:jest": "jest --coverage --coverage-threshold='{\"global\":{\"branches\":90,\"functions\":90,\"lines\":90,\"statements\":90}}'",

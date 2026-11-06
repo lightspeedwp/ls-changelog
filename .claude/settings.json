@@ -1,6 +1,6 @@
 {
   "projectName": "changelog",
-  "description": "Production-ready changelog automation system for WordPress block themes and plugins with governance validation and release management",
+  "description": "Changelog skill for WordPress block themes and plugins: basic helper checks plus manual governance and release review",
   "version": "1.0.0",
   "settings": {
     "model": "claude-opus-5-5",
@@ -63,7 +63,6 @@
       "testJest": "npm run test:jest -- runs Jest tests",
       "testBats": "npm run test:bats -- runs BATS integration tests",
       "testWatch": "npm run test:watch -- continuous testing",
-      "testVerbose": "npm run test:verbose -- detailed output",
       "testSingle": "npm test -- <filename>.test.js"
     },
     "coLocation": {
@@ -93,11 +92,11 @@
   "subSkills": {
     "branch-context-mapper": {
       "path": "sub-skills/branch-context-mapper",
-      "description": "Analyze git branch names and determine changelog categories, semantic version bumps, and breaking changes"
+      "description": "Map a branch type to a changelog category and version-bump hint (advisory; no breaking-change detection)"
     },
     "changelog-validator": {
       "path": "sub-skills/changelog-validator",
-      "description": "Validate CHANGELOG.md format, enforce governance rules, and score quality for WordPress block themes and plugins"
+      "description": "Basic CHANGELOG.md title and version-heading check; governance and quality review are manual"
     }
   },
   "documentation": {
@@ -117,8 +116,8 @@
     "engine": "lefthook",
     "config": "lefthook.yaml",
     "hooks": {
-      "pre-commit": "Branch naming validation, changelog format check, Jest tests (90%+ coverage), BATS tests (100% pass)",
-      "commit-msg": "Branch-based commit format validation",
+      "pre-commit": "Branch type check, root changelog format check, Jest tests (configured 90% coverage threshold) and BATS tests",
+      "commit-msg": "Commit message format check (type(scope): message)",
       "pre-push": "Final validation before push"
     }
   },

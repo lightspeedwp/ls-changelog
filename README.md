@@ -4,10 +4,10 @@ A Claude Code skill for creating and reviewing WordPress project changelogs, wit
 
 ## Install and invoke
 
-Clone directly into your personal Claude Code skills directory:
+The repository is `lightspeedwp/ls-wp-changelog`; the skill itself is named `ls-changelog`. Clone it into your personal Claude Code skills directory under the skill name:
 
 ```bash
-git clone https://github.com/lightspeedwp/ls-changelog.git ~/.claude/skills/ls-changelog
+git clone https://github.com/lightspeedwp/ls-wp-changelog.git ~/.claude/skills/ls-changelog
 ```
 
 If this checkout already exists there, use it in place. In Claude Code:
@@ -60,23 +60,25 @@ node ~/.claude/skills/ls-changelog/sub-skills/branch-context-mapper/scripts/bran
 node ~/.claude/skills/ls-changelog/sub-skills/changelog-validator/scripts/validate-changelog.cjs /absolute/path/to/project/CHANGELOG.md --json
 ```
 
-- [Branch Context Mapper](sub-skills/branch-context-mapper/SKILL.md) maps seven simple branch types to categories and version hints. It does not detect breaking changes or fully validate Git branch names.
+- [Branch Context Mapper](sub-skills/branch-context-mapper/SKILL.md) maps a fixed list of simple branch types (the original seven plus the organisation types it supports) to categories and version hints. It does not detect breaking changes or fully validate Git branch names.
 - [Changelog Validator](sub-skills/changelog-validator/SKILL.md) checks for a changelog title and version-heading pattern. Its score, governance fields, and release-readiness flag are placeholders; manual review is required.
 
 The skill instructions distinguish helper results from manual checks. Documentation and roadmap targets do not establish implemented enforcement. Changelog preparation alone does not authorise commits, tags, merges, or publication.
 
 ## Development checks
 
-Each sub-skill has its own npm package and lockfile. There is no root npm package. Install development dependencies and run checks from each directory:
+There are three npm packages: the root package (`@lightspeedwp/changelog-skill`, which tests the root `scripts/validate-changelog.cjs`) and one package in each sub-skill. No lockfiles are tracked (`package-lock.json` is git-ignored), so use `npm install`, not `npm ci`. Run checks from each package directory:
 
 ```bash
-npm --prefix sub-skills/branch-context-mapper ci
-npm --prefix sub-skills/changelog-validator ci
+npm install
+npm test
+npm --prefix sub-skills/branch-context-mapper install
+npm --prefix sub-skills/changelog-validator install
 npm --prefix sub-skills/branch-context-mapper test
 npm --prefix sub-skills/changelog-validator test
 ```
 
-`npm test` runs ESLint, Prettier, Jest with a 90% coverage threshold, and BATS in sequence. Install BATS separately. A configured threshold is a requirement, not a claim that current tests achieve it. A failed earlier stage prevents later stages from running.
+The sub-skill `npm test` runs ESLint, Prettier, Jest with a 90% coverage threshold, and BATS in sequence; the root `npm test` runs Jest and BATS. Install BATS separately. A configured threshold is a requirement, not a claim that current tests achieve it. A failed earlier stage prevents later stages from running.
 
 `lefthook.yaml` contains existing hook configuration; hooks are not installed by using the skill. Review that configuration before enabling it in a development checkout.
 
@@ -86,6 +88,6 @@ npm --prefix sub-skills/changelog-validator test
 - [Team Onboarding](docs/TEAM_ONBOARDING.md): existing team workflow documentation.
 - [Organisation Standards](docs/ORG_STANDARDS.md): organisation policy context.
 - [Phase 2 Roadmap](docs/PHASE_2_ROADMAP.md): planned capabilities.
-- [GitHub Issues](https://github.com/lightspeedwp/ls-changelog/issues): repository issues.
+- [GitHub Issues](https://github.com/lightspeedwp/ls-wp-changelog/issues): repository issues.
 
 Use the root and sub-skill instructions for current paths and supported helper options. Older workflow documents may describe planned capabilities or previous installation paths.

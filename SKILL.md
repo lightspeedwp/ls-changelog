@@ -28,7 +28,7 @@ For a combined request, use the mapper to inform entries and the validator after
 
 ## Bundled tools
 
-Node.js 18+ is required to run the helpers. Both helpers use Node's standard library; runtime use does not require `npm install`.
+Node.js 18+ is required to run the helpers. Both helpers use Node's standard library; runtime use does not require `npm install`. Development checks (tests, lint) are only needed when maintaining this skill: install per package with `npm install` (no lockfiles are tracked); see [README](README.md#development-checks). The root `scripts/validate-changelog.cjs` belongs to this repository's own tests and hooks; use the validator sub-skill's helper for target projects.
 
 Resolve helper paths from this skill directory and keep the working directory in the target project. Claude Code supplies `${CLAUDE_SKILL_DIR}` for this root entrypoint:
 
