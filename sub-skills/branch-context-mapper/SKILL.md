@@ -26,8 +26,20 @@ The CLI accepts one branch-name argument and prints JSON. Exit code 0 means the 
 | `refactor/` | Changed         | null                |
 | `test/`     | null            | null                |
 | `chore/`    | null            | PATCH               |
+| `feat/`     | Added           | MINOR               |
+| `hotfix/`   | Fixed           | PATCH               |
+| `perf/`     | Changed         | PATCH               |
+| `design/`   | Changed         | null                |
+| `a11y/`     | Changed         | PATCH               |
+| `deps/`     | null            | PATCH               |
+| `ci/`       | null            | null                |
+| `build/`    | null            | null                |
+| `task/`     | null            | null                |
+| `release/`  | null            | null                |
 
-For naming context, read [Branching Strategy](references/BRANCHING_STRATEGY.md). The helper requires exactly one slash and a recognised type. It does not enforce lowercase descriptions, description length, non-empty descriptions, or valid Git ref syntax. It does not support scoped types, `breaking:` prefixes, `--validate-only`, or `--commit-message`.
+The first seven rows are the original mapper contract; `feature/` remains accepted alongside the organisation's `feat/`. The remaining rows align with the organisation branch types in [Branching Strategy](references/BRANCHING_STRATEGY.md). Branch types outside this table, including `revert/`, `ops/` and `epic/`, are rejected.
+
+For naming context, read [Branching Strategy](references/BRANCHING_STRATEGY.md). The helper requires exactly one slash and a recognised lowercase type. Uppercase types and extra slashes are rejected. An empty description such as `fix/` is still accepted. It does not enforce lowercase descriptions, description length, non-empty descriptions, or valid Git ref syntax. It does not support scoped types, `breaking:` prefixes, `--validate-only`, or `--commit-message`.
 
 ## Interpret the result
 

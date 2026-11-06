@@ -8,11 +8,15 @@
 
 ## Output
 
-- Branch type (feature/fix/docs/etc)
+- Branch type (feature/feat/fix/docs/etc)
 - Description
 - Changelog category
 - Version bump
 - Breaking change flag
+
+## Accepted prefixes
+
+`feature`, `feat`, `fix`, `hotfix`, `security`, `docs`, `refactor`, `test`, `chore`, `perf`, `design`, `a11y`, `deps`, `ci`, `build`, `task`, `release`. Types must be lowercase and the name must contain exactly one slash. Other prefixes are rejected.
 
 ## Example
 

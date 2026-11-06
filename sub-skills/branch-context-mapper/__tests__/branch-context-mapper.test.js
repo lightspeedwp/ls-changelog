@@ -113,6 +113,61 @@ describe('Branch Context Mapper', () => {
     });
   });
 
+  describe('Organisation Branch Types', () => {
+    test.each([
+      ['feat/user-registration', 'feat', 'Added', 'MINOR'],
+      ['hotfix/auth-bypass', 'hotfix', 'Fixed', 'PATCH'],
+      ['perf/query-cache', 'perf', 'Changed', 'PATCH'],
+      ['design/button-states', 'design', 'Changed', null],
+      ['a11y/focus-order', 'a11y', 'Changed', 'PATCH'],
+      ['deps/upgrade-packages', 'deps', null, 'PATCH'],
+      ['ci/lint-workflow', 'ci', null, null],
+      ['build/bundle-config', 'build', null, null],
+      ['task/epic-cleanup', 'task', null, null],
+      ['release/v1-2-0', 'release', null, null]
+    ])('should accept %s', (branch, type, category, versionBump) => {
+      const result = analyzeBranch(branch);
+      expect(result.isValid).toBe(true);
+      expect(result.branchType).toBe(type);
+      expect(result.category).toBe(category);
+      expect(result.versionBump).toBe(versionBump);
+      expect(result.isBreaking).toBe(false);
+    });
+
+    test('should map feat the same as feature', () => {
+      const feat = analyzeBranch('feat/x');
+      const feature = analyzeBranch('feature/x');
+      expect(feat.category).toBe(feature.category);
+      expect(feat.versionBump).toBe(feature.versionBump);
+    });
+
+    test('should still reject types outside the supported list', () => {
+      const result = analyzeBranch('wip/something');
+      expect(result.isValid).toBe(false);
+      expect(result.validationErrors[0]).toContain('Unknown branch type');
+    });
+  });
+
+  describe('Preserved Edge Behaviour', () => {
+    test('should reject uppercase branch types', () => {
+      expect(analyzeBranch('Feature/Oauth').isValid).toBe(false);
+      expect(analyzeBranch('FIX/bug').isValid).toBe(false);
+    });
+
+    test('should reject extra slashes for organisation types', () => {
+      const result = analyzeBranch('feat/scope/title');
+      expect(result.isValid).toBe(false);
+      expect(result.validationErrors).toContain('Branch name must follow format: type/description');
+    });
+
+    test('should keep accepting fix/ with an empty description', () => {
+      const result = analyzeBranch('fix/');
+      expect(result.isValid).toBe(true);
+      expect(result.branchType).toBe('fix');
+      expect(result.description).toBe('');
+    });
+  });
+
   describe('Module Exports', () => {
     test('should export analyzeBranch function', () => {
       expect(typeof analyzeBranch).toBe('function');
@@ -127,6 +182,7 @@ describe('Branch Context Mapper', () => {
       expect(BRANCH_TYPES.refactor).toBeDefined();
       expect(BRANCH_TYPES.test).toBeDefined();
       expect(BRANCH_TYPES.chore).toBeDefined();
+      expect(BRANCH_TYPES.feat).toBeDefined();
     });
 
     test('should have correct branch type mappings', () => {
